@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Tiwashcarz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0052ff',
+                            dark: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #020617; }
+        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-link.active { background-color: rgba(0, 82, 255, 0.1); color: #0052ff; }
+        .nav-link { color: #9ca3af; } /* gray-400 */
+        .nav-link:hover { background-color: rgba(31, 41, 55, 0.5); color: #ffffff; }
+    </style>
+</head>
+<body class="text-gray-200 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-brand-dark border-r border-gray-800 flex flex-col hidden md:flex shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <h1 class="text-xl font-bold tracking-tighter text-white">
+                ADMIN<span class="text-brand-blue">PANEL</span>
+            </h1>
+        </div>
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto" id="sidebarNav">
+            <a href="#" data-target="section-portfolio" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors">
+                <i class="fa-solid fa-camera-retro w-5 text-center"></i>
+                Portfolio & Photos
+            </a>
+            <a href="#" data-target="section-reservations" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors">
+                <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                Réservations
+                <span id="reservationCountBadge" class="ml-auto bg-brand-blue text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="#" data-target="section-settings" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors">
+                <i class="fa-solid fa-gear w-5 text-center"></i>
+                Paramètres
+            </a>
+        </nav>
+        <div class="p-4 border-t border-gray-800">
+            <button class="flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl font-medium transition-colors w-full">
+                <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
+                Déconnexion
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <!-- Topbar -->
+        <header class="h-20 bg-brand-dark border-b border-gray-800 flex items-center justify-between px-6 lg:px-10 shrink-0">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <h2 id="pageTitle" class="text-xl font-semibold text-white">Gestion du Portfolio</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-sm font-medium text-gray-400 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-eye"></i> Voir le site
+                </a>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-blue to-blue-400 border-2 border-brand-darker flex items-center justify-center font-bold text-white shadow-lg">
+                    T
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-10">
+            
+            <!-- SECTION PORTFOLIO -->
+            <div id="section-portfolio" class="tab-content active max-w-5xl mx-auto">
+                <div class="glass-panel rounded-2xl p-6 lg:p-8 mb-8 border border-gray-800 shadow-xl">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Ajouter une réalisation</h3>
+                            <p class="text-gray-400 text-sm">Publiez des photos Avant/Après pour montrer votre expertise.</p>
+                        </div>
+                    </div>
+
+                    <form id="portfolioForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- File Input -->
+                            <div class="col-span-1 md:col-span-2 border-2 border-dashed border-gray-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:border-brand-blue hover:bg-brand-blue/5 transition-all cursor-pointer relative group">
+                                <input type="file" id="photoInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/jpeg, image/png">
+                                <div class="w-16 h-16 rounded-full bg-gray-800 group-hover:bg-brand-blue/20 flex items-center justify-center mb-4 transition-colors">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-gray-400 group-hover:text-brand-blue transition-colors"></i>
+                                </div>
+                                <h4 class="text-white font-medium mb-1">Sélectionnez une photo</h4>
+                                <p class="text-sm text-gray-500" id="photoName">JPG, PNG - Max 2MB (pour localStorage)</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Titre de la réalisation</label>
+                                    <input type="text" id="photoTitle" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue font-sm" placeholder="Ex: Rénovation Porsche 911" required>
+                                </div>
+                                <button type="submit" class="w-full bg-brand-blue hover:bg-blue-600 text-white font-medium py-3 rounded-xl transition-colors mt-2">
+                                    <i class="fa-solid fa-plus mr-2"></i> Publier la photo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-800 pb-4">Galerie Actuelle</h3>
+                <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Images injectées ici -->
+                </div>
+            </div>
+
+            <!-- SECTION RÉSERVATIONS -->
+            <div id="section-reservations" class="tab-content max-w-5xl mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-1">Réservations Clients</h3>
+                        <p class="text-gray-400 text-sm">Gérez vos demandes de lavage automobile.</p>
+                    </div>
+                    <button onclick="loadReservations()" class="bg-brand-blue hover:bg-blue-600 shadow-[0_0_15px_rgba(0,82,255,0.3)] text-white px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Actualiser
+                    </button>
+                </div>
+
+                <div class="bg-brand-dark rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-brand-darker border-b border-gray-800 text-gray-400 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-medium">Client</th>
+                                    <th class="p-4 font-medium">Véhicule & Prestation</th>
+                                    <th class="p-4 font-medium">Date RDV</th>
+                                    <th class="p-4 font-medium text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationsTableBody" class="text-sm divide-y divide-gray-800">
+                                <!-- Reservations injectées ici -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="noReservations" class="hidden p-12 text-center text-gray-500">
+                        <i class="fa-solid fa-calendar-xmark text-4xl mb-4 text-gray-700"></i>
+                        <p class="text-lg">Aucune réservation pour le moment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION PARAMÈTRES -->
+            <div id="section-settings" class="tab-content max-w-5xl mx-auto">
+                <div class="glass-panel rounded-2xl p-6 lg:p-8 mb-8 border border-gray-800 shadow-xl">
+                    <h3 class="text-2xl font-bold text-white mb-6">Paramètres du Site</h3>
+                    <form id="settingsForm" class="space-y-8">
+                        
+                        <!-- Contact Info -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-white mb-4 border-b border-gray-800 pb-2">Informations de Contact</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">Téléphone</label>
+                                    <input type="text" id="set-phone" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="01 23 45 67 89">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">Adresse Email</label>
+                                    <input type="email" id="set-email" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="contact@tiwashcarz.ch">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">Disponibilité (Texte Affiché)</label>
+                                    <input type="text" id="set-avail" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Disponible tous les jours jusqu'à 20h00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarifs -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-white mb-4 border-b border-gray-800 pb-2">Tarifs des Formules (CHF)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">Voitures citadines</label>
+                                    <input type="number" id="set-citadines" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="80">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">Limousines ou break</label>
+                                    <input type="number" id="set-limousines" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="100">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-1">SUV</label>
+                                    <input type="number" id="set-suv" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="120">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Succes message -->
+                        <div id="settingsSuccess" class="hidden bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded-lg flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check"></i> Paramètres sauvegardés ! Ils sont désormais visibles sur le site public.
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-brand-blue hover:bg-blue-600 shadow-[0_0_15px_rgba(0,82,255,0.3)] text-white px-8 py-3 rounded-xl font-medium transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- Navigation Tabs ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const pageTitle = document.getElementById('pageTitle');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                const targetId = link.getAttribute('data-target');
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+                
+                if(targetId === 'section-portfolio') {
+                    pageTitle.textContent = "Gestion du Portfolio";
+                } else if(targetId === 'section-reservations') {
+                    pageTitle.textContent = "Réservations Clients";
+                    loadReservations();
+                } else if(targetId === 'section-settings') {
+                    pageTitle.textContent = "Paramètres du Site";
+                }
+            });
+        });
+
+        // --- Réservations Logic ---
+        function loadReservations() {
+            const tbody = document.getElementById('reservationsTableBody');
+            const table = tbody.parentNode;
+            const noResDiv = document.getElementById('noReservations');
+            const badge = document.getElementById('reservationCountBadge');
+            
+            const reservations = JSON.parse(localStorage.getItem('tiwash_reservations') || '[]');
+            
+            badge.textContent = reservations.length;
+            tbody.innerHTML = '';
+
+            if (reservations.length === 0) {
+                noResDiv.classList.remove('hidden');
+                table.classList.add('hidden');
+            } else {
+                noResDiv.classList.add('hidden');
+                table.classList.remove('hidden');
+
+                // Sort by newest first
+                reservations.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                reservations.forEach(res => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-gray-800/30 transition-colors";
+                    
+                    const formatService = (s) => {
+                        if(s==='citadines') return 'Citadines (80 CHF)';
+                        if(s==='limousines') return 'Limousines (100 CHF)';
+                        if(s==='suv') return 'SUV (120 CHF)';
+                        return s;
+                    };
+
+                    tr.innerHTML = `
+                        <td class="p-4">
+                            <div class="font-medium text-white">${res.name}</div>
+                            <div class="text-gray-400 text-xs mt-1"><i class="fa-solid fa-phone mr-1"></i> ${res.phone}</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-medium text-white">${res.car}</div>
+                            <div class="text-brand-blue text-xs mt-1.5 bg-brand-blue/10 border border-brand-blue/20 inline-block px-2 py-0.5 rounded">${formatService(res.service)}</div>
+                        </td>
+                        <td class="p-4 text-gray-300">
+                            ${res.date ? res.date : '<span class="text-gray-500 italic">Non spécifiée</span>'}
+                            ${res.notes ? `<div class="text-gray-400 text-xs mt-1" title="${res.notes}"><i class="fa-regular fa-comment-dots text-brand-blue"></i> Note: ${res.notes.substring(0,25)}${res.notes.length>25?'...':''}</div>` : ''}
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="deleteReservation('${res.id}')" class="text-gray-400 hover:text-red-400 transition-colors bg-gray-800 hover:bg-gray-700 focus:outline-none w-9 h-9 rounded-lg inline-flex items-center justify-center">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+
+        function deleteReservation(id) {
+            if(confirm('Êtes-vous sûr de vouloir considérer cette réservation comme traitée / la supprimer ?')) {
+                let reservations = JSON.parse(localStorage.getItem('tiwash_reservations') || '[]');
+                reservations = reservations.filter(r => r.id !== id);
+                localStorage.setItem('tiwash_reservations', JSON.stringify(reservations));
+                loadReservations();
+            }
+        }
+
+        // --- Portfolio Logic ---
+        const photoInput = document.getElementById('photoInput');
+        const photoName = document.getElementById('photoName');
+        const portfolioForm = document.getElementById('portfolioForm');
+
+        photoInput.addEventListener('change', (e) => {
+            if(e.target.files.length > 0) {
+                photoName.textContent = e.target.files[0].name;
+                photoName.classList.add('text-brand-blue');
+            } else {
+                photoName.textContent = "JPG, PNG - Max 2MB (pour localStorage)";
+                photoName.classList.remove('text-brand-blue');
+            }
+        });
+
+        portfolioForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('photoTitle').value;
+            const file = photoInput.files[0];
+
+            if(!file) {
+                alert("Veuillez sélectionner une photo !");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const dataUrl = event.target.result;
+                
+                const newItem = {
+                    id: Date.now().toString(),
+                    title: title,
+                    image: dataUrl,
+                    date: new Date().toLocaleDateString('fr-FR')
+                };
+
+                let portfolio = JSON.parse(localStorage.getItem('tiwash_portfolio') || '[]');
+                portfolio.unshift(newItem);
+                
+                try {
+                    localStorage.setItem('tiwash_portfolio', JSON.stringify(portfolio));
+                    loadPortfolio();
+                    portfolioForm.reset();
+                    photoName.textContent = "JPG, PNG - Max 2MB (pour localStorage)";
+                    photoName.classList.remove('text-brand-blue');
+                } catch(err) {
+                    alert('Erreur: L\'image est probablement trop lourde pour le stockage local du navigateur. Essayez une image plus petite.');
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function loadPortfolio() {
+            const grid = document.getElementById('galleryGrid');
+            let portfolio = JSON.parse(localStorage.getItem('tiwash_portfolio') || '[]');
+            
+            // Injecter des images factices une seule fois si on est au premier chargement
+            if(portfolio.length === 0 && !localStorage.getItem('tiwash_portfolio_initialized')) {
+                portfolio = [
+                    { id: '1', title: 'Traitement Audi RS6', image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', date: 'Démo' },
+                    { id: '2', title: 'Nettoyage cuir BMW', image: 'https://images.unsplash.com/photo-1550345332-09e3ac987658?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', date: 'Démo' }
+                ];
+                localStorage.setItem('tiwash_portfolio', JSON.stringify(portfolio));
+                localStorage.setItem('tiwash_portfolio_initialized', 'true');
+            }
+
+            grid.innerHTML = '';
+            portfolio.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-brand-dark border border-gray-800 rounded-2xl overflow-hidden group shadow-lg";
+                div.innerHTML = `
+                    <div class="h-48 relative overflow-hidden bg-gray-900 border-b border-gray-800">
+                        <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${item.title}">
+                        <div onclick="deletePortfolio('${item.id}')" class="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-trash text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-white font-medium truncate" title="${item.title}">${item.title}</h4>
+                        <p class="text-xs text-gray-500 mt-1">Ajouté le ${item.date}</p>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function deletePortfolio(id) {
+            if(confirm('Supprimer cette photo ?')) {
+                let portfolio = JSON.parse(localStorage.getItem('tiwash_portfolio') || '[]');
+                portfolio = portfolio.filter(p => p.id !== id);
+                localStorage.setItem('tiwash_portfolio', JSON.stringify(portfolio));
+                loadPortfolio();
+            }
+        }
+
+        // --- Settings Logic ---
+        const settingsForm = document.getElementById('settingsForm');
+
+        function loadSettings() {
+            // Default settings
+            const defaultSettings = {
+                phone: "01 23 45 67 89",
+                email: "contact@tiwashcarz.ch",
+                avail: "Disponible tous les jours jusqu'à 20h00",
+                citadines: 80,
+                limousines: 100,
+                suv: 120
+            };
+            let settings = JSON.parse(localStorage.getItem('tiwash_settings'));
+            if(!settings) settings = defaultSettings;
+
+            document.getElementById('set-phone').value = settings.phone;
+            document.getElementById('set-email').value = settings.email;
+            document.getElementById('set-avail').value = settings.avail;
+            document.getElementById('set-citadines').value = settings.citadines;
+            document.getElementById('set-limousines').value = settings.limousines;
+            document.getElementById('set-suv').value = settings.suv;
+        }
+
+        settingsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newSettings = {
+                phone: document.getElementById('set-phone').value,
+                email: document.getElementById('set-email').value,
+                avail: document.getElementById('set-avail').value,
+                citadines: document.getElementById('set-citadines').value,
+                limousines: document.getElementById('set-limousines').value,
+                suv: document.getElementById('set-suv').value
+            };
+            localStorage.setItem('tiwash_settings', JSON.stringify(newSettings));
+            
+            const msg = document.getElementById('settingsSuccess');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 4000);
+        });
+
+        // Init
+        loadReservations();
+        loadPortfolio();
+        loadSettings();
+    </script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiwashcarz | Detailing & Lavage Auto</title>
+    <meta name="description"
+        content="Remise à neuf de véhicules, detailing automobile et lavage main premium. Prenez rendez-vous en ligne avec Tiwashcarz.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0052ff', // Electric blue accent
+                            dark: '#0f172a', // Slate 900
+                            darker: '#020617', // Slate 950
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Image overlay gradient */
+        .hero-pattern {
+            background-image: linear-gradient(to right, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.4) 100%), url('/Users/letaief/.gemini/antigravity/brain/231fa1b4-499f-43ba-a0ac-210121723b19/shiny_car_bg_1775826441597.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-darker text-gray-100 antialiased selection:bg-brand-blue selection:text-white">
+
+    <!-- Header -->
+    <header
+        class="fixed w-full z-50 bg-brand-darker/90 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+        id="header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold tracking-tighter text-white">
+                        TIWASH<span class="text-brand-blue">CARZ</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#accueil"
+                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Accueil</a>
+                    <a href="#pourquoi-nous"
+                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Expertise</a>
+                    <a href="#prestations"
+                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Prestations</a>
+                </nav>
+                <div class="hidden md:flex">
+                    <a href="#reservation"
+                        class="bg-brand-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(0,82,255,0.3)] hover:shadow-[0_0_20px_rgba(0,82,255,0.5)]">
+                        Réserver un créneau
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="max-w-2xl">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-sm font-medium mb-6">
+                    L'excellence automobile
+                </span>
+                <h1 class="text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight">
+                    Redonnez à votre véhicule sa <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-400">brillance
+                        originelle</span>.
+                </h1>
+                <p class="text-xl text-gray-300 mb-10 max-w-xl font-light">
+                    Notre studio de detailing professionnel allie passion, techniques avancées et produits premium pour
+                    sublimer chaque détail de votre carrosserie.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#reservation"
+                        class="bg-brand-blue hover:bg-blue-600 text-white px-8 py-4 rounded-full text-center font-medium transition-all shadow-[0_0_20px_rgba(0,82,255,0.4)] hover:-translate-y-1">
+                        Réserver mon lavage
+                    </a>
+                    <a href="#prestations"
+                        class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-full text-center font-medium transition-all hover:-translate-y-1 backdrop-blur-sm">
+                        Découvrir nos offres
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi nous choisir -->
+    <section id="pourquoi-nous" class="py-24 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Pourquoi nous confier votre véhicule ?</h2>
+                <p class="text-gray-400 text-lg">Nous ne faisons aucun compromis sur la qualité. Chaque véhicule est
+                    traité avec la plus grande exigence.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-leaf text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Produits Premium & Écolos</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Nous utilisons exclusively des gammes de produits haut de gamme, respectueuses de
+                        l'environnement et de la peinture de votre véhicule.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-hand-sparkles text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Finitions 100% à la main</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Aucun rouleau automatique. Chaque étape, du prélavage au lustrage final, est réalisée
+                        manuellement avec des microfibres adaptées.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    <div
+                        class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-stopwatch text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Gain de Temps</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Détendez-vous dans notre espace lounge ou continuez votre journée : nous respectons les créneaux
+                        et optimisons notre process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nos Prestations -->
+    <section id="prestations" class="py-24 bg-brand-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nos Prestations</h2>
+                <p class="text-gray-400 text-lg">Choisissez le forfait adapté à l'état de votre véhicule et à vos
+                    attentes.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="bg-brand-dark rounded-3xl border border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                    <div class="p-8 pb-0">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Voitures citadines</h3>
+                        <p class="text-gray-400 mb-6">Un soin complet pour votre petite voiture.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span id="dynamic-price-citadines" class="text-4xl font-bold text-white">80 CHF</span>
+                        </div>
+                    </div>
+                    <div class="p-8 pt-0 flex-1 flex flex-col">
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Dressing des plastiques</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    cuirs (nettoyage & hydratation)</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                        </ul>
+                        <button
+                            onclick="document.getElementById('service').value='citadines'; document.getElementById('reservation').scrollIntoView();"
+                            class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors">Choisir
+                            cette formule</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-gradient-to-b from-brand-dark to-brand-darker rounded-3xl border border-brand-blue ring-1 ring-brand-blue/50 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300 relative shadow-[0_0_30px_rgba(0,82,255,0.15)]">
+                    <div class="absolute top-0 inset-x-0 h-1 bg-brand-blue"></div>
+                    <div class="absolute top-5 right-5">
+                        <span
+                            class="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Le
+                            plus demandé</span>
+                    </div>
+                    <div class="p-8 pb-0">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Limousines ou break</h3>
+                        <p class="text-gray-400 mb-6">Nettoyage en profondeur pour votre berline.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span id="dynamic-price-limousines" class="text-4xl font-bold text-white">100 CHF</span>
+                        </div>
+                    </div>
+                    <div class="p-8 pt-0 flex-1 flex flex-col">
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Dressing des plastiques</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    cuirs (nettoyage & hydratation)</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                        </ul>
+                        <button
+                            onclick="document.getElementById('service').value='limousines'; document.getElementById('reservation').scrollIntoView();"
+                            class="w-full py-3 rounded-xl bg-brand-blue hover:bg-blue-600 text-white font-medium transition-colors">Choisir
+                            cette formule</button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-brand-dark rounded-3xl border border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                    <div class="p-8 pb-0">
+                        <h3 class="text-2xl font-semibold text-white mb-2">SUV</h3>
+                        <p class="text-gray-400 mb-6">Un entretien parfait pour les plus grands volumes.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span id="dynamic-price-suv" class="text-4xl font-bold text-white">120 CHF</span>
+                        </div>
+                    </div>
+                    <div class="p-8 pt-0 flex-1 flex flex-col">
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Dressing des plastiques</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    cuirs (nettoyage & hydratation)</span></li>
+                            <li class="flex items-start gap-3"><i
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span
+                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                        </ul>
+                        <button
+                            onclick="document.getElementById('service').value='suv'; document.getElementById('reservation').scrollIntoView();"
+                            class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors">Choisir
+                            cette formule</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Réservation (Formulaire) -->
+    <section id="reservation" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Glow effect -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/20 rounded-full blur-[120px] pointer-events-none">
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-brand-darker border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-3">Réserver un créneau</h2>
+                    <p class="text-gray-400">Remplissez ce formulaire et notre équipe vous recontactera rapidement pour
+                        valider.</p>
+                </div>
+
+                <form id="bookingForm" class="space-y-6" novalidate>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nom -->
+                        <div class="space-y-2">
+                            <label for="name" class="block text-sm font-medium text-gray-300">Nom complet *</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                                placeholder="Jean Dupont">
+                            <p class="hidden text-red-500 text-xs mt-1 error-msg">Ce champ est requis.</p>
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div class="space-y-2">
+                            <label for="phone" class="block text-sm font-medium text-gray-300">Numéro de téléphone
+                                *</label>
+                            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}"
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                                placeholder="079 123 45 67">
+                            <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez entrer un numéro valide sans
+                                espaces.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="car" class="block text-sm font-medium text-gray-300">Modèle du véhicule *</label>
+                        <input type="text" id="car" name="car" required
+                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                            placeholder="Ex: Porsche 911, Audi A3...">
+                        <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez spécifier votre véhicule.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Prestation -->
+                        <div class="space-y-2">
+                            <label for="service" class="block text-sm font-medium text-gray-300">Prestation souhaitée
+                                *</label>
+                            <select id="service" name="service" required
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent appearance-none">
+                                <option value="" disabled selected>Sélectionnez une formule</option>
+                                <option value="citadines">Voitures citadines</option>
+                                <option value="limousines">Limousines ou break (Recommandé)</option>
+                                <option value="suv">SUV</option>
+                            </select>
+                            <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez choisir une prestation.</p>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="space-y-2">
+                            <label for="date" class="block text-sm font-medium text-gray-300">Date souhaitée</label>
+                            <input type="date" id="date" name="date"
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent [color-scheme:dark]">
+                        </div>
+                    </div>
+
+                    <!-- Submit Alert -->
+                    <div id="successMsg"
+                        class="hidden bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded-lg flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Votre demande a été envoyée avec succès ! Nous vous contactons vite.
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-brand-blue hover:bg-blue-600 text-white font-medium text-lg py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(0,82,255,0.3)] hover:shadow-[0_0_25px_rgba(0,82,255,0.6)] flex justify-center items-center gap-2">
+                        <span>Envoyer la demande</span>
+                        <i class="fa-solid fa-paper-plane mt-0.5"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-darker border-t border-gray-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="text-2xl font-bold tracking-tighter text-white inline-block mb-4">
+                        TIWASH<span class="text-brand-blue">CARZ</span>
+                    </a>
+                    <p class="text-gray-400 max-w-sm mb-6">
+                        Le spécialiste de la préparation esthétique automobile. Redonnez vie à votre véhicule avec nos
+                        soins sur mesure.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
+                                class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Contact</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-phone text-brand-blue mt-1"></i> <span id="dynamic-contact-phone">01 23 45 67 89</span></li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-envelope text-brand-blue mt-1"></i> <span id="dynamic-contact-email">contact@tiwashcarz.ch</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Disponibilité</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-clock text-brand-blue mt-1"></i> <span id="dynamic-contact-avail">Disponible tous les jours jusqu'à 20h00</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2026 Tiwashcarz. Tous droits réservés.</p>
+                <div class="flex gap-6 text-sm">
+                    <a href="mentions-legales.html" class="text-gray-500 hover:text-white transition-colors">Mentions
+                        légales</a>
+                    <a href="cgv.html" class="text-gray-500 hover:text-white transition-colors">CGV</a>
+                    <a href="politique-confidentialite.html"
+                        class="text-gray-500 hover:text-white transition-colors">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts pour l'interactivité -->
+    <script>
+        // 1. Changement de fond au scroll pour le Header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-lg');
+                header.classList.replace('bg-brand-darker/90', 'bg-brand-darker/95');
+            } else {
+                header.classList.remove('shadow-lg');
+                header.classList.replace('bg-brand-darker/95', 'bg-brand-darker/90');
+            }
+        });
+
+        // 2. Validation du formulaire + Simulation d'envoi
+        const form = document.getElementById('bookingForm');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Réinitialiser les messages d'erreur
+            const errorMsgs = document.querySelectorAll('.error-msg');
+            errorMsgs.forEach(msg => msg.classList.add('hidden'));
+
+            // Validation personnalisée
+            const name = document.getElementById('name');
+            const phone = document.getElementById('phone');
+            const car = document.getElementById('car');
+            const service = document.getElementById('service');
+
+            if (!name.value.trim()) {
+                name.nextElementSibling.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Check regex pattern (10 chiffres)
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone.value.replace(/\s+/g, ''))) {
+                phone.nextElementSibling.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!car.value.trim()) {
+                car.nextElementSibling.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!service.value) {
+                service.nextElementSibling.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Si tout est valide, on procède à l'envoi
+            if (isValid) {
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+
+                // Animation chargement
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Envoi en cours...';
+                btn.disabled = true;
+
+                // Préparation des données pour l'email
+                const payload = {
+                    Nom: name.value,
+                    Telephone: phone.value,
+                    Vehicule: car.value,
+                    Prestation: service.value,
+                    DateSouhaitée: document.getElementById('date').value || 'Non spécifiée',
+                    _subject: "Tiwashcarz - Nouvelle Demande de Réservation",
+                    _template: "table"
+                };
+
+                // Sauvegarde pour le tableau de bord Admin
+                const newRes = {
+                    id: Date.now().toString(),
+                    name: name.value,
+                    phone: phone.value,
+                    car: car.value,
+                    service: service.value,
+                    date: document.getElementById('date').value,
+                    notes: '',
+                    createdAt: new Date().toISOString()
+                };
+                let reservations = JSON.parse(localStorage.getItem('tiwash_reservations') || '[]');
+                reservations.push(newRes);
+                localStorage.setItem('tiwash_reservations', JSON.stringify(reservations));
+
+                // Envoi via l'API AJAX de FormSubmit
+                fetch("https://formsubmit.co/ajax/contact@tiwashcarz.ch", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('successMsg').classList.remove('hidden');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    form.reset();
+
+                    // Cacher le message de succès après 5s
+                    setTimeout(() => {
+                        document.getElementById('successMsg').classList.add('hidden');
+                    }, 5000);
+                })
+                .catch(error => {
+                    console.error("Erreur:", error);
+                    alert("Une erreur est survenue lors de l'envoi.");
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            }
+        });
+
+        // 3. Smooth scroll de base assuré par class "scroll-smooth" sur <html>
+
+        // 4. Charger dynamiquement les paramètres
+        document.addEventListener("DOMContentLoaded", () => {
+            const settings = JSON.parse(localStorage.getItem('tiwash_settings'));
+            if(settings) {
+                const pEl = document.getElementById('dynamic-contact-phone');
+                if(pEl && settings.phone) pEl.textContent = settings.phone;
+                
+                const eEl = document.getElementById('dynamic-contact-email');
+                if(eEl && settings.email) eEl.textContent = settings.email;
+                
+                const aEl = document.getElementById('dynamic-contact-avail');
+                if(aEl && settings.avail) aEl.textContent = settings.avail;
+                
+                const cEl = document.getElementById('dynamic-price-citadines');
+                if(cEl && settings.citadines) cEl.textContent = settings.citadines + " CHF";
+                
+                const lEl = document.getElementById('dynamic-price-limousines');
+                if(lEl && settings.limousines) lEl.textContent = settings.limousines + " CHF";
+                
+                const sEl = document.getElementById('dynamic-price-suv');
+                if(sEl && settings.suv) sEl.textContent = settings.suv + " CHF";
+            }
+        });
+    </script>
+</body>
+
+</html>

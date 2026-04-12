@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réserver - Tiwashcarz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0052ff',
+                            dark: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-brand-darker text-gray-100 antialiased min-h-screen flex flex-col">
+
+    <!-- Simple Header for Standalone Page -->
+    <header class="w-full bg-brand-darker/90 backdrop-blur-md border-b border-white/10 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-brand-blue transition-colors">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="index.html" class="text-2xl font-bold tracking-tighter text-white">
+                        TIWASH<span class="text-brand-blue">CARZ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 relative overflow-hidden bg-brand-dark">
+        <!-- Glow effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="w-full max-w-3xl bg-brand-darker border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl relative z-10">
+            <div class="text-center mb-10">
+                <div class="w-16 h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-calendar-check text-3xl text-brand-blue"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-3">Réservez votre créneau</h1>
+                <p class="text-gray-400">Demande de rendez-vous en ligne. Nous vous confirmerons la date sous 24h.</p>
+            </div>
+
+            <form id="bookingFormStandalone" class="space-y-6" novalidate>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="name" class="block text-sm font-medium text-gray-300">Nom complet *</label>
+                        <input type="text" id="name" name="name" required class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Jean Dupont">
+                        <p class="hidden text-red-500 text-xs mt-1 error-msg">Ce champ est requis.</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="phone" class="block text-sm font-medium text-gray-300">Numéro de téléphone *</label>
+                        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="06 12 34 56 78">
+                        <p class="hidden text-red-500 text-xs mt-1 error-msg">Entrez un numéro valide (10 chiffres).</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="car" class="block text-sm font-medium text-gray-300">Modèle du véhicule *</label>
+                    <input type="text" id="car" name="car" required class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Ex: Porsche 911, Audi RS3...">
+                    <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez spécifier votre véhicule.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="service" class="block text-sm font-medium text-gray-300">Prestation souhaitée *</label>
+                        <select id="service" name="service" required class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent appearance-none">
+                            <option value="" disabled selected>Sélectionnez une formule</option>
+                            <option value="citadines">Voitures citadines</option>
+                            <option value="limousines">Limousines ou break (Recommandé)</option>
+                            <option value="suv">SUV</option>
+                        </select>
+                        <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez choisir une prestation.</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="date" class="block text-sm font-medium text-gray-300">Date souhaitée</label>
+                        <input type="date" id="date" name="date" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent [color-scheme:dark]">
+                    </div>
+                </div>
+                
+                <!-- Notes -->
+                <div class="space-y-2">
+                    <label for="notes" class="block text-sm font-medium text-gray-300">Notes ou demandes particulières (Optionnel)</label>
+                    <textarea id="notes" name="notes" rows="3" class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all resize-none" placeholder="Taches incrustées, rayures spécifiques..."></textarea>
+                </div>
+
+                <div id="successMsg" class="hidden bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded-lg flex items-center gap-3">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Votre demande est envoyée ! Retour à l'accueil imminent...
+                </div>
+
+                <button type="submit" class="w-full bg-brand-blue hover:bg-blue-600 text-white font-medium text-lg py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(0,82,255,0.3)] hover:shadow-[0_0_25px_rgba(0,82,255,0.6)] flex justify-center items-center gap-2">
+                    <span>Envoyer la demande</span>
+                    <i class="fa-solid fa-paper-plane mt-0.5"></i>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer très simple -->
+    <footer class="bg-brand-darker border-t border-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm">© 2026 Tiwashcarz. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if there is a 'service' parameter in URL (e.g. reservation.html?service=interieur)
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceParam = urlParams.get('service');
+        if (serviceParam) {
+            const select = document.getElementById('service');
+            const options = Array.from(select.options);
+            if (options.some(opt => opt.value === serviceParam)) {
+                select.value = serviceParam;
+            }
+        }
+
+        const form = document.getElementById('bookingFormStandalone');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            document.querySelectorAll('.error-msg').forEach(msg => msg.classList.add('hidden'));
+
+            const fields = ['name', 'phone', 'car', 'service'];
+            fields.forEach(fieldId => {
+                const el = document.getElementById(fieldId);
+                let validField = true;
+                if (!el.value.trim()) validField = false;
+                if (fieldId === 'phone' && !/^[0-9]{10}$/.test(el.value.replace(/\s+/g, ''))) validField = false;
+                
+                if (!validField) {
+                    el.nextElementSibling.classList.remove('hidden');
+                    isValid = false;
+                }
+            });
+
+            if (isValid) {
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Traitement...';
+                btn.disabled = true;
+
+                // Préparation des données pour l'email
+                const payload = {
+                    Nom: document.getElementById('name').value,
+                    Telephone: document.getElementById('phone').value,
+                    Vehicule: document.getElementById('car').value,
+                    Prestation: document.getElementById('service').value,
+                    DateSouhaitée: document.getElementById('date').value || 'Non spécifiée',
+                    RequeteSupplementaire: document.getElementById('notes').value || 'Aucune',
+                    _subject: "Tiwashcarz - Nouvelle Demande de Réservation",
+                    _template: "table"
+                };
+
+                // Sauvegarde locale pour le dashboard Admin
+                const newRes = {
+                    id: Date.now().toString(),
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    car: document.getElementById('car').value,
+                    service: document.getElementById('service').value,
+                    date: document.getElementById('date').value,
+                    notes: document.getElementById('notes').value,
+                    createdAt: new Date().toISOString()
+                };
+                let reservations = JSON.parse(localStorage.getItem('tiwash_reservations') || '[]');
+                reservations.push(newRes);
+                localStorage.setItem('tiwash_reservations', JSON.stringify(reservations));
+
+                fetch("https://formsubmit.co/ajax/contact@tiwashcarz.ch", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('successMsg').classList.remove('hidden');
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Envoyé';
+                    setTimeout(() => window.location.href = 'index.html', 3000); // Redirect after success
+                })
+                .catch(error => {
+                    alert("Une erreur de réseau est survenue.");
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
