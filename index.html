@@ -20,14 +20,14 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
+        tailwind.config = { darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
                             blue: '#0052ff', // Electric blue accent
-                            dark: '#0f172a', // Slate 900
-                            darker: '#020617', // Slate 950
+                            dark: '#111111', // Dark gray for sections
+                            darker: '#000000', // Pure black for body
                         }
                     },
                     fontFamily: {
@@ -46,9 +46,9 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Image overlay gradient */
+        /* Image overlay gradient is now handled via Tailwind classes in HTML to support Light/Dark modes */
         .hero-pattern {
-            background-image: linear-gradient(to right, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.4) 100%), url('/Users/letaief/.gemini/antigravity/brain/231fa1b4-499f-43ba-a0ac-210121723b19/shiny_car_bg_1775826441597.png');
+            background-image: url('/Users/letaief/.gemini/antigravity/brain/231fa1b4-499f-43ba-a0ac-210121723b19/shiny_car_bg_1775826441597.png');
             background-size: cover;
             background-position: center;
         }
@@ -71,63 +71,71 @@
             background: #475569;
         }
     </style>
+
+    <!-- Theme Init -->
+    <script src="theme.js"></script>
 </head>
 
-<body class="bg-brand-darker text-gray-100 antialiased selection:bg-brand-blue selection:text-white">
+<body class="bg-white dark:bg-brand-darker text-gray-900 dark:text-gray-100 antialiased selection:bg-brand-blue selection:text-white transition-colors duration-500">
 
     <!-- Header -->
     <header
-        class="fixed w-full z-50 bg-brand-darker/90 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+        class="fixed w-full z-50 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-gray-200/50 dark:border-white/10 transition-colors duration-500"
         id="header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center">
-                    <a href="#" class="text-2xl font-bold tracking-tighter text-white">
+                    <a href="#" class="text-xl md:text-2xl font-bold tracking-tighter text-gray-900 dark:text-white">
                         TIWASH<span class="text-brand-blue">CARZ</span>
                     </a>
                 </div>
-                <nav class="hidden md:flex space-x-8">
+                <!-- Navigation Desktop -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8">
                     <a href="#accueil"
-                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Accueil</a>
+                        class="text-gray-700 dark:text-gray-300 hover:text-brand-blue dark:hover:text-white transition-colors text-sm font-medium">Accueil</a>
                     <a href="#pourquoi-nous"
-                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Expertise</a>
+                        class="text-gray-700 dark:text-gray-300 hover:text-brand-blue dark:hover:text-white transition-colors text-sm font-medium">Expertise</a>
                     <a href="#prestations"
-                        class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Prestations</a>
+                        class="text-gray-700 dark:text-gray-300 hover:text-brand-blue dark:hover:text-white transition-colors text-sm font-medium">Prestations</a>
                 </nav>
-                <div class="hidden md:flex">
+                <div class="flex items-center gap-4">
                     <a href="#reservation"
-                        class="bg-brand-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(0,82,255,0.3)] hover:shadow-[0_0_20px_rgba(0,82,255,0.5)]">
-                        Réserver un créneau
+                        class="hidden sm:inline-block bg-brand-blue hover:bg-blue-600 text-white px-5 py-2 lg:px-6 lg:py-2.5 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(0,82,255,0.3)] hover:shadow-[0_0_20px_rgba(0,82,255,0.5)]">
+                        Réserver
                     </a>
+                    <!-- Container for Theme toggle, will be injected by JS -->
+                    <div id="theme-toggle-container" class="flex items-center"></div>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="accueil" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="max-w-2xl">
+    <section id="accueil" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern min-h-screen flex items-center transition-colors duration-500">
+        <!-- Overlay Dynamique -->
+        <div class="absolute inset-0 bg-white/85 dark:bg-black/85 z-0 transition-colors duration-500"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center text-center">
+            <div class="max-w-3xl">
                 <span
                     class="inline-block py-1 px-3 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-sm font-medium mb-6">
                     L'excellence automobile
                 </span>
-                <h1 class="text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight">
-                    Redonnez à votre véhicule sa <span
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+                    Redonnez à votre véhicule sa <br class="hidden sm:block" /><span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-400">brillance
                         originelle</span>.
                 </h1>
-                <p class="text-xl text-gray-300 mb-10 max-w-xl font-light">
+                <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto font-light">
                     Notre studio de detailing professionnel allie passion, techniques avancées et produits premium pour
                     sublimer chaque détail de votre carrosserie.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
                     <a href="#reservation"
-                        class="bg-brand-blue hover:bg-blue-600 text-white px-8 py-4 rounded-full text-center font-medium transition-all shadow-[0_0_20px_rgba(0,82,255,0.4)] hover:-translate-y-1">
+                        class="w-full sm:w-auto bg-brand-blue hover:bg-blue-600 text-white px-8 py-4 rounded-full text-center font-medium transition-all shadow-[0_0_20px_rgba(0,82,255,0.4)] hover:-translate-y-1">
                         Réserver mon lavage
                     </a>
                     <a href="#prestations"
-                        class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-full text-center font-medium transition-all hover:-translate-y-1 backdrop-blur-sm">
+                        class="w-full sm:w-auto bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 border border-black/10 dark:border-white/20 text-gray-900 dark:text-white px-8 py-4 rounded-full text-center font-medium transition-all hover:-translate-y-1 backdrop-blur-sm">
                         Découvrir nos offres
                     </a>
                 </div>
@@ -136,24 +144,24 @@
     </section>
 
     <!-- Pourquoi nous choisir -->
-    <section id="pourquoi-nous" class="py-24 bg-brand-dark">
+    <section id="pourquoi-nous" class="py-24 bg-gray-50 dark:bg-brand-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Pourquoi nous confier votre véhicule ?</h2>
-                <p class="text-gray-400 text-lg">Nous ne faisons aucun compromis sur la qualité. Chaque véhicule est
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Pourquoi nous confier votre véhicule ?</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Nous ne faisons aucun compromis sur la qualité. Chaque véhicule est
                     traité avec la plus grande exigence.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div
-                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    class="bg-white dark:bg-brand-darker p-8 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-brand-blue/50 transition-colors group">
                     <div
                         class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-leaf text-2xl text-brand-blue"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Produits Premium & Écolos</h3>
-                    <p class="text-gray-400 leading-relaxed">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Produits Premium & Écolos</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                         Nous utilisons exclusively des gammes de produits haut de gamme, respectueuses de
                         l'environnement et de la peinture de votre véhicule.
                     </p>
@@ -161,13 +169,13 @@
 
                 <!-- Feature 2 -->
                 <div
-                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    class="bg-white dark:bg-brand-darker p-8 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-brand-blue/50 transition-colors group">
                     <div
                         class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-hand-sparkles text-2xl text-brand-blue"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Finitions 100% à la main</h3>
-                    <p class="text-gray-400 leading-relaxed">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Finitions 100% à la main</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                         Aucun rouleau automatique. Chaque étape, du prélavage au lustrage final, est réalisée
                         manuellement avec des microfibres adaptées.
                     </p>
@@ -175,13 +183,13 @@
 
                 <!-- Feature 3 -->
                 <div
-                    class="bg-brand-darker p-8 rounded-2xl border border-gray-800 hover:border-brand-blue/50 transition-colors group">
+                    class="bg-white dark:bg-brand-darker p-8 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-brand-blue/50 transition-colors group">
                     <div
                         class="w-14 h-14 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-stopwatch text-2xl text-brand-blue"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Gain de Temps</h3>
-                    <p class="text-gray-400 leading-relaxed">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Gain de Temps</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                         Détendez-vous dans notre espace lounge ou continuez votre journée : nous respectons les créneaux
                         et optimisons notre process.
                     </p>
@@ -191,83 +199,79 @@
     </section>
 
     <!-- Nos Prestations -->
-    <section id="prestations" class="py-24 bg-brand-darker">
+    <section id="prestations" class="py-24 bg-white dark:bg-brand-darker">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nos Prestations</h2>
-                <p class="text-gray-400 text-lg">Choisissez le forfait adapté à l'état de votre véhicule et à vos
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Nos Prestations</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Choisissez le forfait adapté à l'état de votre véhicule et à vos
                     attentes.</p>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Card 1 -->
                 <div
-                    class="bg-brand-dark rounded-3xl border border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                    class="bg-gray-50 dark:bg-brand-dark rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
                     <div class="p-8 pb-0">
-                        <h3 class="text-2xl font-semibold text-white mb-2">Voitures citadines</h3>
-                        <p class="text-gray-400 mb-6">Un soin complet pour votre petite voiture.</p>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Voitures citadines</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Un soin complet pour votre petite voiture.</p>
                         <div class="flex items-baseline gap-2 mb-8">
-                            <span id="dynamic-price-citadines" class="text-4xl font-bold text-white">80 CHF</span>
+                            <span id="dynamic-price-citadines" class="text-4xl font-bold text-gray-900 dark:text-white">80 CHF</span>
                         </div>
                     </div>
                     <div class="p-8 pt-0 flex-1 flex flex-col">
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Lavage Classique inclus</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Shampoing sièges et moquettes</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Dressing des plastiques</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Dressing des plastiques</span></li>
                             <li class="flex items-start gap-3"><i
-                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-700 dark:text-gray-300">Soin
                                     cuirs (nettoyage & hydratation)</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Purification habitacle à l'ozone</span></li>
                         </ul>
                         <button
                             onclick="document.getElementById('service').value='citadines'; document.getElementById('reservation').scrollIntoView();"
-                            class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors">Choisir
+                            class="w-full py-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-700 text-gray-900 dark:text-white font-medium transition-colors">Choisir
                             cette formule</button>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div
-                    class="bg-gradient-to-b from-brand-dark to-brand-darker rounded-3xl border border-brand-blue ring-1 ring-brand-blue/50 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300 relative shadow-[0_0_30px_rgba(0,82,255,0.15)]">
+                    class="bg-gradient-to-b from-blue-50 to-white dark:from-brand-dark dark:to-brand-darker rounded-3xl border border-brand-blue ring-1 ring-brand-blue/50 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300 relative shadow-[0_0_30px_rgba(0,82,255,0.15)]">
                     <div class="absolute top-0 inset-x-0 h-1 bg-brand-blue"></div>
-                    <div class="absolute top-5 right-5">
-                        <span
-                            class="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Le
-                            plus demandé</span>
-                    </div>
+
                     <div class="p-8 pb-0">
-                        <h3 class="text-2xl font-semibold text-white mb-2">Limousines ou break</h3>
-                        <p class="text-gray-400 mb-6">Nettoyage en profondeur pour votre berline.</p>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Limousines ou break</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Nettoyage en profondeur pour votre berline.</p>
                         <div class="flex items-baseline gap-2 mb-8">
-                            <span id="dynamic-price-limousines" class="text-4xl font-bold text-white">100 CHF</span>
+                            <span id="dynamic-price-limousines" class="text-4xl font-bold text-gray-900 dark:text-white">100 CHF</span>
                         </div>
                     </div>
                     <div class="p-8 pt-0 flex-1 flex flex-col">
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Lavage Classique inclus</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Shampoing sièges et moquettes</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Dressing des plastiques</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Dressing des plastiques</span></li>
                             <li class="flex items-start gap-3"><i
-                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-700 dark:text-gray-300">Soin
                                     cuirs (nettoyage & hydratation)</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Purification habitacle à l'ozone</span></li>
                         </ul>
                         <button
                             onclick="document.getElementById('service').value='limousines'; document.getElementById('reservation').scrollIntoView();"
@@ -278,35 +282,35 @@
 
                 <!-- Card 3 -->
                 <div
-                    class="bg-brand-dark rounded-3xl border border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                    class="bg-gray-50 dark:bg-brand-dark rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
                     <div class="p-8 pb-0">
-                        <h3 class="text-2xl font-semibold text-white mb-2">SUV</h3>
-                        <p class="text-gray-400 mb-6">Un entretien parfait pour les plus grands volumes.</p>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">SUV</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Un entretien parfait pour les plus grands volumes.</p>
                         <div class="flex items-baseline gap-2 mb-8">
-                            <span id="dynamic-price-suv" class="text-4xl font-bold text-white">120 CHF</span>
+                            <span id="dynamic-price-suv" class="text-4xl font-bold text-gray-900 dark:text-white">120 CHF</span>
                         </div>
                     </div>
                     <div class="p-8 pt-0 flex-1 flex flex-col">
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Lavage Classique inclus</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Lavage Classique inclus</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Shampoing sièges et moquettes</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Shampoing sièges et moquettes</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Dressing des plastiques</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Dressing des plastiques</span></li>
                             <li class="flex items-start gap-3"><i
-                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-300">Soin
+                                    class="fa-solid fa-check mt-1 text-brand-blue"></i><span class="text-gray-700 dark:text-gray-300">Soin
                                     cuirs (nettoyage & hydratation)</span></li>
                             <li class="flex items-start gap-3"><i
                                     class="fa-solid fa-check mt-1 text-brand-blue"></i><span
-                                    class="text-gray-300">Purification habitacle à l'ozone</span></li>
+                                    class="text-gray-700 dark:text-gray-300">Purification habitacle à l'ozone</span></li>
                         </ul>
                         <button
                             onclick="document.getElementById('service').value='suv'; document.getElementById('reservation').scrollIntoView();"
-                            class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors">Choisir
+                            class="w-full py-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-700 text-gray-900 dark:text-white font-medium transition-colors">Choisir
                             cette formule</button>
                     </div>
                 </div>
@@ -315,65 +319,65 @@
     </section>
 
     <!-- Avis Clients -->
-    <section id="avis" class="py-24 bg-brand-dark">
+    <section id="avis" class="py-24 bg-gray-50 dark:bg-brand-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ce que pensent nos clients</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Ce que pensent nos clients</h2>
                 <div class="flex items-center justify-center gap-1 mb-4">
                     <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
                     <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
                     <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
                     <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
                     <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
-                    <span class="ml-2 text-white font-bold text-xl">5.0/5</span>
+                    <span class="ml-2 text-gray-900 dark:text-white font-bold text-xl">5.0/5</span>
                 </div>
-                <p class="text-gray-400 text-lg">La satisfaction de nos clients est notre meilleure publicité.</p>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">La satisfaction de nos clients est notre meilleure publicité.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Review 1 -->
-                <div class="bg-brand-darker p-8 rounded-3xl border border-gray-800 relative hover:border-brand-blue/30 transition-colors">
+                <div class="bg-white dark:bg-brand-darker p-8 rounded-3xl border border-gray-200 dark:border-gray-800 relative hover:border-brand-blue/30 transition-colors">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <div class="flex items-center gap-1 mb-4 text-yellow-400 text-sm">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-300 italic mb-6">"Un travail incroyable sur ma Porsche. L'intérieur cuir est revenu comme neuf et la carrosserie brille plus qu'à la sortie de concession."</p>
+                    <p class="text-gray-700 dark:text-gray-300 italic mb-6">"Un travail incroyable sur ma Porsche. L'intérieur cuir est revenu comme neuf et la carrosserie brille plus qu'à la sortie de concession."</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center font-bold text-white">M</div>
+                        <img src="images/Porsche.jpeg" alt="Porsche" class="w-12 h-12 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity" onclick="openLightbox(this.src)" title="Cliquez pour agrandir">
                         <div>
-                            <h4 class="text-white font-medium">Marc D.</h4>
+                            <h4 class="text-gray-900 dark:text-white font-medium">Marc D.</h4>
                             <span class="text-xs text-brand-blue">Formule SUV</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Review 2 -->
-                <div class="bg-brand-darker p-8 rounded-3xl border border-gray-800 relative hover:border-brand-blue/30 transition-colors">
+                <div class="bg-white dark:bg-brand-darker p-8 rounded-3xl border border-gray-200 dark:border-gray-800 relative hover:border-brand-blue/30 transition-colors">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <div class="flex items-center gap-1 mb-4 text-yellow-400 text-sm">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-300 italic mb-6">"Mon véhicule de fonction (une grosse berline) avait bien besoin d'un rafraîchissement. Le résultat est tout simplement bluffant. Équipe pro !"</p>
+                    <p class="text-gray-700 dark:text-gray-300 italic mb-6">"Mon véhicule de fonction (une grosse berline) avait bien besoin d'un rafraîchissement. Le résultat est tout simplement bluffant. Équipe pro !"</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center font-bold text-white">S</div>
+                        <img src="images/Mercedes.jpeg" alt="Mercedes" class="w-12 h-12 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity" onclick="openLightbox(this.src)" title="Cliquez pour agrandir">
                         <div>
-                            <h4 class="text-white font-medium">Sophie L.</h4>
+                            <h4 class="text-gray-900 dark:text-white font-medium">Sophie L.</h4>
                             <span class="text-xs text-brand-blue">Limousines ou break</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Review 3 -->
-                <div class="bg-brand-darker p-8 rounded-3xl border border-gray-800 relative hover:border-brand-blue/30 transition-colors">
+                <div class="bg-white dark:bg-brand-darker p-8 rounded-3xl border border-gray-200 dark:border-gray-800 relative hover:border-brand-blue/30 transition-colors">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <div class="flex items-center gap-1 mb-4 text-yellow-400 text-sm">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-300 italic mb-6">"Excellente prestation pour ma petite citadine avant de la revendre. Le travail soigné m'a permis de la vendre au prix fort. Merci Tiwashcarz !"</p>
+                    <p class="text-gray-700 dark:text-gray-300 italic mb-6">"Excellente prestation pour ma petite citadine avant de la revendre. Le travail soigné m'a permis de la vendre au prix fort. Merci Tiwashcarz !"</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center font-bold text-white">A</div>
+                        <img src="images/Audi.jpeg" alt="Audi" class="w-12 h-12 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity" onclick="openLightbox(this.src)" title="Cliquez pour agrandir">
                         <div>
-                            <h4 class="text-white font-medium">Alexandre P.</h4>
+                            <h4 class="text-gray-900 dark:text-white font-medium">Alexandre P.</h4>
                             <span class="text-xs text-brand-blue">Voitures citadines</span>
                         </div>
                     </div>
@@ -383,62 +387,62 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="py-24 bg-brand-darker">
+    <section id="faq" class="py-24 bg-white dark:bg-brand-darker">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Questions Fréquentes</h2>
-                <p class="text-gray-400 text-lg">Tout ce que vous devez savoir avant de nous confier votre véhicule.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Questions Fréquentes</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Tout ce que vous devez savoir avant de nous confier votre véhicule.</p>
             </div>
 
             <div class="space-y-4">
                 <!-- FAQ 1 -->
-                <details class="group bg-brand-dark border border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white text-lg">
+                <details class="group bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-gray-900 dark:text-white text-lg">
                         <span>Combien de temps dure une prestation ?</span>
                         <span class="transition group-open:rotate-180">
                                 <i class="fa-solid fa-chevron-down text-brand-blue"></i>
                         </span>
                     </summary>
-                    <div class="text-gray-400 mt-4 leading-relaxed border-t border-gray-800 pt-4">
+                    <div class="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed border-t border-gray-200 dark:border-gray-800 pt-4">
                         Le temps de lavage varie selon l'état et la taille du véhicule. Prévoyez en moyenne entre 2h et 3h pour une citadine, et jusqu'à 4h pour un SUV très encrassé. Nous optimisons notre temps pour un résultat impeccable sans immobiliser votre véhicule toute la journée.
                     </div>
                 </details>
 
                 <!-- FAQ 2 -->
-                <details class="group bg-brand-dark border border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white text-lg">
+                <details class="group bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-gray-900 dark:text-white text-lg">
                         <span>Dois-je vider ma voiture avant le rendez-vous ?</span>
                         <span class="transition group-open:rotate-180">
                                 <i class="fa-solid fa-chevron-down text-brand-blue"></i>
                         </span>
                     </summary>
-                    <div class="text-gray-400 mt-4 leading-relaxed border-t border-gray-800 pt-4">
+                    <div class="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed border-t border-gray-200 dark:border-gray-800 pt-4">
                         L'idéal est de retirer vos effets personnels volumineux, coffre compris, pour que nous puissions nettoyer chaque recoin (moquettes, vides-poche). Nous nous occupons du reste en traitant l'habitacle de fond en comble.
                     </div>
                 </details>
 
                 <!-- FAQ 3 -->
-                <details class="group bg-brand-dark border border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white text-lg">
+                <details class="group bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-gray-900 dark:text-white text-lg">
                         <span>Quels produits utilisez-vous pour les cuirs ?</span>
                         <span class="transition group-open:rotate-180">
                                 <i class="fa-solid fa-chevron-down text-brand-blue"></i>
                         </span>
                     </summary>
-                    <div class="text-gray-400 mt-4 leading-relaxed border-t border-gray-800 pt-4">
+                    <div class="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed border-t border-gray-200 dark:border-gray-800 pt-4">
                         Nous utilisons exclusivement des savons doux pH neutre spécialement conçus pour l'automobile pour dégraisser vos cuirs en toute sécurité, suivis d'un baume hydratant UV protecteur haute qualité pour redonner la souplesse et l'aspect mat originel.
                     </div>
                 </details>
 
                 <!-- FAQ 4 -->
-                <details class="group bg-brand-dark border border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white text-lg">
+                <details class="group bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-gray-800 rounded-2xl p-6 open:bg-brand-dark/80 transition-colors duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-gray-900 dark:text-white text-lg">
                         <span>Comment puis-je payer ?</span>
                         <span class="transition group-open:rotate-180">
                                 <i class="fa-solid fa-chevron-down text-brand-blue"></i>
                         </span>
                     </summary>
-                    <div class="text-gray-400 mt-4 leading-relaxed border-t border-gray-800 pt-4">
+                    <div class="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed border-t border-gray-200 dark:border-gray-800 pt-4">
                         Le paiement s'effectue directement le jour du lavage, une fois la prestation terminée et le véhicule inspecté ensemble. Nous acceptons les espèces et la plupart des paiements mobiles (TWINT, Payconiq, etc.).
                     </div>
                 </details>
@@ -447,17 +451,17 @@
     </section>
 
     <!-- Réservation (Formulaire) -->
-    <section id="reservation" class="py-24 bg-brand-dark relative overflow-hidden">
+    <section id="reservation" class="py-24 bg-gray-50 dark:bg-brand-dark relative overflow-hidden">
         <!-- Glow effect -->
         <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/20 rounded-full blur-[120px] pointer-events-none">
         </div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="bg-brand-darker border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <div class="bg-white dark:bg-brand-darker border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl">
                 <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-white mb-3">Réserver un créneau</h2>
-                    <p class="text-gray-400">Remplissez ce formulaire et notre équipe vous recontactera rapidement pour
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">Réserver un créneau</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Remplissez ce formulaire et notre équipe vous recontactera rapidement pour
                         valider.</p>
                 </div>
 
@@ -465,19 +469,19 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nom -->
                         <div class="space-y-2">
-                            <label for="name" class="block text-sm font-medium text-gray-300">Nom complet *</label>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nom complet *</label>
                             <input type="text" id="name" name="name" required
-                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                                class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
                                 placeholder="Jean Dupont">
                             <p class="hidden text-red-500 text-xs mt-1 error-msg">Ce champ est requis.</p>
                         </div>
 
                         <!-- Téléphone -->
                         <div class="space-y-2">
-                            <label for="phone" class="block text-sm font-medium text-gray-300">Numéro de téléphone
+                            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Numéro de téléphone
                                 *</label>
                             <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}"
-                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                                class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
                                 placeholder="079 123 45 67">
                             <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez entrer un numéro valide sans
                                 espaces.</p>
@@ -485,9 +489,9 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label for="car" class="block text-sm font-medium text-gray-300">Modèle du véhicule *</label>
+                        <label for="car" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Modèle du véhicule *</label>
                         <input type="text" id="car" name="car" required
-                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
+                            class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all"
                             placeholder="Ex: Porsche 911, Audi A3...">
                         <p class="hidden text-red-500 text-xs mt-1 error-msg">Veuillez spécifier votre véhicule.</p>
                     </div>
@@ -495,10 +499,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Prestation -->
                         <div class="space-y-2">
-                            <label for="service" class="block text-sm font-medium text-gray-300">Prestation souhaitée
+                            <label for="service" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Prestation souhaitée
                                 *</label>
                             <select id="service" name="service" required
-                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent appearance-none">
+                                class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent appearance-none">
                                 <option value="" disabled selected>Sélectionnez une formule</option>
                                 <option value="citadines">Voitures citadines</option>
                                 <option value="limousines">Limousines ou break (Recommandé)</option>
@@ -509,9 +513,9 @@
 
                         <!-- Date -->
                         <div class="space-y-2">
-                            <label for="date" class="block text-sm font-medium text-gray-300">Date souhaitée</label>
+                            <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date souhaitée</label>
                             <input type="date" id="date" name="date"
-                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent [color-scheme:dark]">
+                                class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
                         </div>
                     </div>
 
@@ -533,54 +537,49 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-darker border-t border-gray-800 pt-16 pb-8">
+    <footer class="bg-white dark:bg-brand-darker border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
-                    <a href="#" class="text-2xl font-bold tracking-tighter text-white inline-block mb-4">
+                    <a href="#" class="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white inline-block mb-4">
                         TIWASH<span class="text-brand-blue">CARZ</span>
                     </a>
-                    <p class="text-gray-400 max-w-sm mb-6">
+                    <p class="text-gray-600 dark:text-gray-400 max-w-sm mb-6">
                         Le spécialiste de la préparation esthétique automobile. Redonnez vie à votre véhicule avec nos
                         soins sur mesure.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
-                                class="fa-brands fa-instagram"></i></a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
-                                class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-white transition-colors"><i
+                        <a href="https://www.tiktok.com/@tiwashcarz?_r=1&_t=ZN-95aV957DtCg" target="_blank"
+                            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-brand-blue flex items-center justify-center text-gray-900 dark:text-white transition-colors"><i
                                 class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
 
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Contact</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-phone text-brand-blue mt-1"></i> <span id="dynamic-contact-phone">01 23 45 67 89</span></li>
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-envelope text-brand-blue mt-1"></i> <span id="dynamic-contact-email">contact@tiwashcarz.ch</span></li>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-phone text-brand-blue mt-1"></i> <a href="tel:+41766898219" id="dynamic-contact-phone" class="hover:text-brand-blue transition-colors">+41 76 689 82 19</a></li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-envelope text-brand-blue mt-1"></i> <a href="mailto:contact@tiwashcarz.ch" id="dynamic-contact-email" class="hover:text-brand-blue transition-colors">contact@tiwashcarz.ch</a></li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-brand-blue mt-1"></i> <span>Je me déplace partout dans Genève et ses alentours.</span></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Disponibilité</h4>
-                    <ul class="space-y-2 text-gray-400">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Disponibilité</h4>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
                         <li class="flex items-start gap-3"><i class="fa-solid fa-clock text-brand-blue mt-1"></i> <span id="dynamic-contact-avail">Disponible tous les jours jusqu'à 20h00</span></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">© 2026 Tiwashcarz. Tous droits réservés.</p>
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 dark:text-gray-400 text-sm">© 2026 Tiwashcarz. Tous droits réservés.</p>
                 <div class="flex gap-6 text-sm">
-                    <a href="mentions-legales.html" class="text-gray-500 hover:text-white transition-colors">Mentions
+                    <a href="mentions-legales.html" class="text-gray-500 dark:text-gray-400 hover:text-white transition-colors">Mentions
                         légales</a>
-                    <a href="cgv.html" class="text-gray-500 hover:text-white transition-colors">CGV</a>
+                    <a href="cgv.html" class="text-gray-500 dark:text-gray-400 hover:text-white transition-colors">CGV</a>
                     <a href="politique-confidentialite.html"
-                        class="text-gray-500 hover:text-white transition-colors">Politique de confidentialité</a>
+                        class="text-gray-500 dark:text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
                 </div>
             </div>
         </div>
@@ -588,10 +587,47 @@
 
     <!-- CTA Mobile Fixe -->
     <div class="md:hidden fixed bottom-4 left-4 right-4 z-[100]">
-        <a href="#reservation" class="flex justify-center items-center gap-2 bg-brand-blue/90 backdrop-blur-xl text-white font-semibold text-lg py-4 rounded-xl shadow-[0_4px_20px_rgba(0,82,255,0.4)] border border-white/20 transition-transform active:scale-95">
+        <a href="#reservation" class="flex justify-center items-center gap-2 bg-brand-blue/90 backdrop-blur-xl text-gray-900 dark:text-white font-semibold text-lg py-4 rounded-xl shadow-[0_4px_20px_rgba(0,82,255,0.4)] border border-white/20 transition-transform active:scale-95">
             Réserver mon lavage <i class="fa-solid fa-arrow-right"></i>
         </a>
     </div>
+
+    <!-- Lightbox Modal -->
+    <div id="imageLightbox" class="fixed inset-0 z-[200] hidden bg-black/90 flex justify-center items-center backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-brand-blue text-4xl font-bold transition-colors z-[201]">&times;</button>
+        <img id="lightboxImg" src="" alt="Aperçu" class="max-w-[90%] max-h-[90%] object-contain rounded-xl shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.classList.remove('hidden');
+            // Timeout to allow DOM update before animating opacity
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightbox.classList.add('opacity-100');
+                img.classList.remove('scale-95');
+                img.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImg');
+            lightbox.classList.remove('opacity-100');
+            lightbox.classList.add('opacity-0');
+            img.classList.remove('scale-100');
+            img.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                img.src = '';
+            }, 300);
+            document.body.style.overflow = '';
+        }
+    </script>
 
     <!-- Scripts pour l'interactivité -->
     <script>
@@ -600,10 +636,12 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 header.classList.add('shadow-lg');
-                header.classList.replace('bg-brand-darker/90', 'bg-brand-darker/95');
+                header.classList.replace('bg-white/90', 'bg-white/95');
+                header.classList.replace('dark:bg-black/90', 'dark:bg-black/95');
             } else {
                 header.classList.remove('shadow-lg');
-                header.classList.replace('bg-brand-darker/95', 'bg-brand-darker/90');
+                header.classList.replace('bg-white/95', 'bg-white/90');
+                header.classList.replace('dark:bg-black/95', 'dark:bg-black/90');
             }
         });
 
@@ -718,10 +756,16 @@
             const settings = JSON.parse(localStorage.getItem('tiwash_settings'));
             if(settings) {
                 const pEl = document.getElementById('dynamic-contact-phone');
-                if(pEl && settings.phone) pEl.textContent = settings.phone;
+                if(pEl && settings.phone) {
+                    pEl.textContent = settings.phone;
+                    pEl.href = "tel:" + settings.phone.replace(/\s+/g, '');
+                }
                 
                 const eEl = document.getElementById('dynamic-contact-email');
-                if(eEl && settings.email) eEl.textContent = settings.email;
+                if(eEl && settings.email) {
+                    eEl.textContent = settings.email;
+                    eEl.href = "mailto:" + settings.email;
+                }
                 
                 const aEl = document.getElementById('dynamic-contact-avail');
                 if(aEl && settings.avail) aEl.textContent = settings.avail;
