@@ -27,26 +27,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #020617; }
-        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
+        body { font-family: 'Inter', sans-serif; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .nav-link.active { background-color: rgba(0, 82, 255, 0.1); color: #0052ff; }
-        .nav-link { color: #9ca3af; } /* gray-400 */
-        .nav-link:hover { background-color: rgba(31, 41, 55, 0.5); color: #ffffff; }
+        .nav-link { color: #6b7280; }
+        :is(.dark .nav-link) { color: #9ca3af; }
+        .nav-link:hover { background-color: rgba(0, 82, 255, 0.05); color: #0052ff; }
+        :is(.dark .nav-link:hover) { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
+        .nav-link.active { background-color: rgba(0, 82, 255, 0.1); color: #0052ff; font-weight: 600; }
+        :is(.dark .nav-link.active) { background-color: rgba(0, 82, 255, 0.2); }
     </style>
 
     <!-- Theme Init -->
     <script src="theme.js"></script>
 </head>
-<body class="text-gray-200 flex h-screen overflow-hidden">
+<body class="bg-gray-50 dark:bg-brand-darker text-gray-900 dark:text-gray-200 flex h-screen overflow-hidden transition-colors duration-300">
+
+    <!-- Sidebar Overlay Mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-50 dark:bg-brand-dark border-r border-gray-200 dark:border-gray-800 flex flex-col hidden md:flex shrink-0">
-        <div class="h-20 flex items-center px-6 border-b border-gray-200 dark:border-gray-800">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-brand-dark border-r border-gray-200 dark:border-gray-800 flex flex-col transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 shrink-0 shadow-2xl md:shadow-none">
+        <div class="h-20 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-800">
             <h1 class="text-xl font-bold tracking-tighter text-gray-900 dark:text-white">
                 ADMIN<span class="text-brand-blue">PANEL</span>
             </h1>
+            <button onclick="toggleSidebar()" class="md:hidden text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
         </div>
         <nav class="flex-1 p-4 space-y-2 overflow-y-auto" id="sidebarNav">
             <a href="#" data-target="section-reservations" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors">
@@ -72,7 +80,7 @@
         <!-- Topbar -->
         <header class="h-20 bg-gray-50 dark:bg-brand-dark border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 lg:px-10 shrink-0">
             <div class="flex items-center gap-4">
-                <button class="md:hidden text-gray-600 dark:text-gray-400 hover:text-white">
+                <button onclick="toggleSidebar()" class="md:hidden text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white transition-colors">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
                 <h2 id="pageTitle" class="text-xl font-semibold text-gray-900 dark:text-white">Réservations Clients</h2>
@@ -104,7 +112,7 @@
                     </button>
                 </div>
 
-                <div class="bg-gray-50 dark:bg-brand-dark rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-xl">
+                <div class="bg-white dark:bg-brand-dark rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-xl">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
@@ -129,7 +137,7 @@
 
             <!-- SECTION PARAMÈTRES -->
             <div id="section-settings" class="tab-content max-w-5xl mx-auto">
-                <div class="glass-panel rounded-2xl p-6 lg:p-8 mb-8 border border-gray-200 dark:border-gray-800 shadow-xl">
+                <div class="bg-white dark:bg-brand-dark rounded-2xl p-6 lg:p-8 mb-8 border border-gray-200 dark:border-gray-800 shadow-xl">
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Paramètres du Site</h3>
                     <form id="settingsForm" class="space-y-8">
                         
@@ -139,15 +147,15 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Téléphone</label>
-                                    <input type="text" id="set-phone" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="01 23 45 67 89">
+                                    <input type="text" id="set-phone" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="01 23 45 67 89">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Adresse Email</label>
-                                    <input type="email" id="set-email" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="contact@tiwashcarz.ch">
+                                    <input type="email" id="set-email" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="contact@tiwashcarz.ch">
                                 </div>
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Disponibilité (Texte Affiché)</label>
-                                    <input type="text" id="set-avail" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Disponible tous les jours jusqu'à 20h00">
+                                    <input type="text" id="set-avail" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="Disponible tous les jours jusqu'à 20h00">
                                 </div>
                             </div>
                         </div>
@@ -158,15 +166,15 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Voitures citadines</label>
-                                    <input type="number" id="set-citadines" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="80">
+                                    <input type="number" id="set-citadines" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="80">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Limousines ou break</label>
-                                    <input type="number" id="set-limousines" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="100">
+                                    <input type="number" id="set-limousines" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="100">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">SUV</label>
-                                    <input type="number" id="set-suv" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="120">
+                                    <input type="number" id="set-suv" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-sm" placeholder="120">
                                 </div>
                             </div>
                         </div>
@@ -189,6 +197,20 @@
     </main>
 
     <script>
+                // --- Mobile Sidebar Logic ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('-translate-x-full');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                overlay.classList.add('hidden');
+            } else {
+                overlay.classList.remove('hidden');
+            }
+        }
+
         // --- Navigation Tabs ---
         const navLinks = document.querySelectorAll('.nav-link');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -237,7 +259,7 @@
 
                 reservations.forEach(res => {
                     const tr = document.createElement('tr');
-                    tr.className = "hover:bg-gray-800/30 transition-colors";
+                    tr.className = "hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors";
                     
                     const formatService = (s) => {
                         if(s==='citadines') return 'Citadines (80 CHF)';
